@@ -1,0 +1,40 @@
+<div class="row">
+  <div class="col-6 offset-3">
+    <h3>Add Timesheet</h3>
+    <div class="alert alert-secondary" *ngIf="message">
+      {{ message}}
+    </div>
+
+    <div>For: {{ employee }}</div>
+
+    <form novalidate (ngSubmit)="save()" [formGroup]="theForm">
+      <div class="form-group">
+        <label>Case: </label>
+        <select class="form-control" name="caseId" formControlName="caseId">
+          <option *ngFor="let case of cases" [value]="case.id">{{ case.client }}: {{ case.fileNumber }}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Date:</label>
+        <input class="form-control" name="workDate" formControlName="workDate" />
+      </div>
+      <div class="form-group">
+        <label>Time Segments (6 minute segments):</label>
+        <input class="form-control" name="timeSegments" formControlName="timeSegments" />
+      </div>
+      <div class="form-group">
+        <label>Rate (in USD):</label>
+        <input class="form-control" name="rate" formControlName="rate" />
+      </div>
+      <div class="form-group">
+        <label>Work Performed:</label>
+        <textarea class="form-control" rows="3" formControlName="workDescription" name="workDescription"></textarea>
+      </div>
+      <div class="form-group">
+        <a href="/" class="btn btn-secondary">Cancel</a>
+        <button type="submit" class="btn btn-success">Add Time Bill</button>
+      </div>
+    </form>
+
+  </div>
+</div>

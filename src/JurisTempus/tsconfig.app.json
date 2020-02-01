@@ -1,0 +1,17 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./wwwroot/client/out/",
+    "types": []
+  },
+  "files": [
+    "client/main.ts",
+    "client/polyfills.ts"
+  ],
+  "include": [
+    "client/**/*.d.ts"
+  ],
+  "angularCompilerOptions": {
+    "enableIvy": true
+  }
+}

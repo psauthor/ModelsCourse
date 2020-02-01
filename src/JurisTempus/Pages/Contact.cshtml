@@ -1,0 +1,25 @@
+@page
+@model JurisTempus.ContactModel
+@{
+    ViewData["Title"] = "Contact";
+}
+<h1>Contact</h1>
+<form method="post">
+  <div class="form-group">
+    <label >Email:</label>
+    <input class="form-control" />
+  </div>
+  <div class="form-group">
+    <label >Subject: </label>
+    <input class="form-control" />
+  </div>
+  <div class="form-group">
+    <label>Message:</label>
+    <textarea class="form-control" rows="5"></textarea>
+  </div>
+  <div class="form-group">
+    <a href="/" class="btn btn-info">Cancel</a>
+    <input type="submit" class="btn btn-success" value="Send" />
+  </div>
+</form>
+
