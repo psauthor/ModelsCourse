@@ -5,7 +5,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using AutoMapper;
 using JurisTempus.Data;
 using Microsoft.EntityFrameworkCore;
 using JurisTempus.ViewModels;
