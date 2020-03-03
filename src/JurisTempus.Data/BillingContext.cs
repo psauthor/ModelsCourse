@@ -26,6 +26,11 @@ namespace JurisTempus.Data
     {
       base.OnModelCreating(bldr); // Do the Default
 
+      bldr.Entity<Case>()
+        .Property(c => c.FileNumber)
+        .IsRequired()
+        .HasMaxLength(50);
+
       bldr.Entity<Client>(t =>
       {
         t.HasData(new Client
@@ -73,6 +78,18 @@ namespace JurisTempus.Data
          Status = CaseStatus.Open,
          FileNumber = "ATL12394872"
        });
+
+      bldr.Entity<TimeBill>()
+        .HasData(new 
+        {
+          Id = 1,
+          CaseId = 1,
+          EmployeeId = 1,
+          Rate = 175.00m,
+          TimeSegments = 5,
+          WorkDate = DateTime.Today,
+          WorkDescription = "Entered data for the client"
+        });
 
     }
   }

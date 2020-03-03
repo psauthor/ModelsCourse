@@ -69,5 +69,58 @@ namespace JurisTempus.Controllers
 
       return BadRequest("Failed to save new timebill");
     }
+
+    [HttpPut("{id:int}")]
+    public async Task<ActionResult<TimeBill>> Put(int id, [FromBody]TimeBill bill)
+    {
+      var oldBill = await _ctx.TimeBills
+        .Where(b => b.Id == id)
+        .FirstOrDefaultAsync();
+
+      if (oldBill == null) return BadRequest("Invalid ID");
+
+      oldBill.Rate = bill.Rate;
+      oldBill.TimeSegments = bill.TimeSegments;
+      oldBill.WorkDate = bill.WorkDate;
+      oldBill.WorkDescription = bill.WorkDescription;
+
+      var theCase = await _ctx.Cases
+        .Where(c => c.Id == bill.Case.Id)
+        .FirstOrDefaultAsync();
+
+      var theEmployee = await _ctx.Employees
+        .Where(e => e.Id == bill.Employee.Id)
+        .FirstOrDefaultAsync();
+
+      bill.Case = theCase;
+      bill.Employee = theEmployee;
+
+      if (await _ctx.SaveChangesAsync() > 0)
+      {
+        return Ok(bill);
+      }
+
+      return BadRequest("Failed to save new timebill");
+    }
+
+    [HttpDelete("{id:int}")]
+    public async Task<IActionResult> Delete(int id)
+    {
+      var oldBill = await _ctx.TimeBills
+        .Where(b => b.Id == id)
+        .FirstOrDefaultAsync();
+
+      if (oldBill == null) return NotFound();
+
+      _ctx.Remove(oldBill);
+
+      if (await _ctx.SaveChangesAsync() > 0)
+      {
+        return Ok();
+      }
+
+      return BadRequest("Failed to save new timebill");
+    }
+
   }
 }
