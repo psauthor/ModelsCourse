@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from './services/DataService';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'theApp',
@@ -31,7 +31,7 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.theForm = this._formBldr.group({
       caseId: [""],
-      start: [new Date()],
+      workDate: [new Date()],
       timeSegments: [0],
       rate: [120.00],
       workDescription: [""]
