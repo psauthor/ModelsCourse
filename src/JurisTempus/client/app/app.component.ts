@@ -10,7 +10,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 export class AppComponent implements OnInit {
   theForm: FormGroup;
   employee: string = "Shawn Wildermuth";
-  employeeId: Number = 1;
+  employeeId: number = 1;
   message: string = "";
   cases = [
     {
