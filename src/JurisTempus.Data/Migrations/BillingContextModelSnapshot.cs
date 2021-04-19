@@ -196,7 +196,7 @@ namespace JurisTempus.Data.Migrations
                             EmployeeId = 1,
                             Rate = 175.00m,
                             TimeSegments = 5,
-                            WorkDate = new DateTime(2020, 3, 3, 0, 0, 0, 0, DateTimeKind.Local),
+                            WorkDate = new DateTime(2021, 4, 19, 0, 0, 0, 0, DateTimeKind.Local),
                             WorkDescription = "Entered data for the client"
                         });
                 });

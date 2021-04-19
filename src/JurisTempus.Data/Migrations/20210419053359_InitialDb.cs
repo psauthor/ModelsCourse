@@ -52,7 +52,7 @@ namespace JurisTempus.Data.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    FileNumber = table.Column<string>(nullable: true),
+                    FileNumber = table.Column<string>(maxLength: 50, nullable: false),
                     Status = table.Column<int>(nullable: false),
                     ClientId = table.Column<int>(nullable: false)
                 },
@@ -141,6 +141,11 @@ namespace JurisTempus.Data.Migrations
                 table: "Cases",
                 columns: new[] { "Id", "ClientId", "FileNumber", "Status" },
                 values: new object[] { 1, 1, "ATL12394872", 1 });
+
+            migrationBuilder.InsertData(
+                table: "TimeBills",
+                columns: new[] { "Id", "CaseId", "EmployeeId", "InvoiceId", "Rate", "TimeSegments", "WorkDate", "WorkDescription" },
+                values: new object[] { 1, 1, 1, null, 175.00m, 5, new DateTime(2021, 4, 19, 0, 0, 0, 0, DateTimeKind.Local), "Entered data for the client" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Cases_ClientId",

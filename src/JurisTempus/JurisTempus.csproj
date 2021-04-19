@@ -8,7 +8,7 @@
   <ItemGroup>
     <Content Include=".editorconfig" />
     <Content Include=".gitignore" />
-    <Content Include="browserslist" />
+    <Content Include=".browserslistrc" />
     <Content Include="favicon.ico" />
     <Content Include="README.md" />
   </ItemGroup>
