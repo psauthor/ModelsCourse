@@ -1,9 +1,16 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="client\node_modules\**" />
+    <Content Remove="client\node_modules\**" />
+    <EmbeddedResource Remove="client\node_modules\**" />
+    <None Remove="client\node_modules\**" />
+  </ItemGroup>
 
   <ItemGroup>
     <Content Include=".editorconfig" />
@@ -27,11 +34,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\JurisTempus.Data\JurisTempus.Data.csproj" />
-  </ItemGroup>
-
-
-  <ItemGroup>
-    <Folder Include="client\node_modules\" />
   </ItemGroup>
 
 </Project>
