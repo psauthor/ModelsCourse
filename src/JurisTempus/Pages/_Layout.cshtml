@@ -4,52 +4,44 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>@ViewData["Title"] - JurisTempus</title>
-  <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-  <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
+  <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
   @RenderSection("head", required: false)
 </head>
 <body>
-  <header>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-      <div class="container">
-        <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">JurisTempus</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-          <ul class="navbar-nav flex-grow-1">
-            <li class="nav-item">
-              <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+  <div class="w-screen h-screen">
+    <div class="w-full md:w-4xl p-8 mx-auto">
+      <header class="mx-auto min-h-[4rem]">
+        <div class="flex justify-between">
+          <h3 class="font-bold text-2xl"><a href="/">&#8986; Client Billing App</a></h3>
+          <ul class="flex font-bold text-amber-800">
+            <li>
+              <a class="mx-2 hover:text-amber-600 hover:font-medium" href="/">Home</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="ClientEditor">Clients</a>
+            <li>
+              <a class="mx-2 hover:text-amber-600 hover:font-medium" href="/clientEditor">Clients</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Timesheet">Timesheet</a>
+            <li>
+              <a class="mx-2 hover:text-amber-600 hover:font-medium" href="/timesheet">Timesheet</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link text-dark" href="/contact">Contact</a>
+            <li>
+              <a class="mx-2 hover:text-amber-600 hover:font-medium" href="/contact">Contact</a>
             </li>
           </ul>
         </div>
+      </header>
+      <div class="border-b border-t">
+        <main role="main" class="pb-3">
+          @RenderBody()
+        </main>
       </div>
-    </nav>
-  </header>
-  <div class="container">
-    <main role="main" class="pb-3">
-      @RenderBody()
-    </main>
-  </div>
 
-  <footer class="border-top footer text-muted">
-    <div class="container">
-      &copy; 2019 - JurisTempus - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+      <footer class="border-t text-muted">
+        <div>
+          &copy; 2025 - JurisTempus - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+      </footer>
     </div>
-  </footer>
-  <script src="~/lib/jquery/dist/jquery.min.js"></script>
-  <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="~/js/site.js" asp-append-version="true"></script>
-  @RenderSection("Scripts", required: false)
+    @RenderSection("Scripts", required: false)
+  </div>
 </body>
 </html>

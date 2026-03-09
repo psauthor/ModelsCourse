@@ -1,26 +1,46 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using System.Configuration;
+using JurisTempus.Apis;
+using JurisTempus.Data;
+using Microsoft.AspNetCore.Http.Json;
+using Microsoft.EntityFrameworkCore;
 
-namespace JurisTempus
-{
-  public class Program
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddAuthorization();
+builder.Services.AddRazorPages()
+  .AddRazorRuntimeCompilation();
+
+builder.Services.AddDbContext<BillingContext>(cfg =>
   {
-    public static void Main(string[] args)
-    {
-      CreateHostBuilder(args).Build().Run();
-    }
+    cfg.UseSqlServer(builder.Configuration.GetConnectionString("JurisDb"));
+  });
 
-    public static IHostBuilder CreateHostBuilder(string[] args) =>
-        Host.CreateDefaultBuilder(args)
-            .ConfigureWebHostDefaults(webBuilder =>
-            {
-              webBuilder.UseStartup<Startup>();
-            });
-  }
+builder.Services.Configure<JsonOptions>(options =>
+{
+  options.SerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+  options.SerializerOptions.Converters.Add(new System.Text.Json.Serialization.JsonStringEnumConverter());
+});
+
+//builder.Services.AddValidation();
+
+var app = builder.Build();
+
+if (app.Environment.IsDevelopment())
+{
+  app.UseDeveloperExceptionPage();
 }
+
+app.UseHttpsRedirection();
+
+app.UseRouting();
+
+app.UseAuthorization();
+app.MapStaticAssets();
+app.MapRazorPages();
+
+// Register the Minimal APIs
+ClientApis.MapApi(app);
+TimeBillsApis.MapApi(app);
+CaseApis.MapApi(app);
+
+app.Run();

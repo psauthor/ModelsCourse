@@ -6,6 +6,8 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
+#nullable disable
+
 namespace JurisTempus.Data.Migrations
 {
     [DbContext(typeof(BillingContext))]
@@ -15,24 +17,26 @@ namespace JurisTempus.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.1")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("ProductVersion", "10.0.2")
+                .HasAnnotation("Relational:MaxIdentifierLength", 128);
+
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
             modelBuilder.Entity("JurisTempus.Data.Entities.Case", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("ClientId")
                         .HasColumnType("int");
 
                     b.Property<string>("FileNumber")
                         .IsRequired()
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
@@ -57,16 +61,20 @@ namespace JurisTempus.Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Contact")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Phone")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -87,22 +95,27 @@ namespace JurisTempus.Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<decimal>("BillingRate")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("FirstName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("GovernmentId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Role")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -125,10 +138,11 @@ namespace JurisTempus.Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
-                    b.Property<int?>("ClientId")
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ClientId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("Date")
@@ -138,6 +152,7 @@ namespace JurisTempus.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("InvoiceNumber")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PublicComments")
@@ -154,13 +169,14 @@ namespace JurisTempus.Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("CaseId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("EmployeeId")
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CaseId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EmployeeId")
                         .HasColumnType("int");
 
                     b.Property<int?>("InvoiceId")
@@ -176,6 +192,7 @@ namespace JurisTempus.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("WorkDescription")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -187,18 +204,6 @@ namespace JurisTempus.Data.Migrations
                     b.HasIndex("InvoiceId");
 
                     b.ToTable("TimeBills");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CaseId = 1,
-                            EmployeeId = 1,
-                            Rate = 175.00m,
-                            TimeSegments = 5,
-                            WorkDate = new DateTime(2021, 4, 19, 0, 0, 0, 0, DateTimeKind.Local),
-                            WorkDescription = "Entered data for the client"
-                        });
                 });
 
             modelBuilder.Entity("JurisTempus.Data.Entities.Case", b =>
@@ -208,6 +213,8 @@ namespace JurisTempus.Data.Migrations
                         .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Client");
                 });
 
             modelBuilder.Entity("JurisTempus.Data.Entities.Client", b =>
@@ -215,11 +222,10 @@ namespace JurisTempus.Data.Migrations
                     b.OwnsOne("JurisTempus.Data.Entities.Address", "Address", b1 =>
                         {
                             b1.Property<int>("ClientId")
-                                .ValueGeneratedOnAdd()
-                                .HasColumnType("int")
-                                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                                .HasColumnType("int");
 
                             b1.Property<string>("Address1")
+                                .IsRequired()
                                 .HasColumnType("nvarchar(max)");
 
                             b1.Property<string>("Address2")
@@ -229,15 +235,18 @@ namespace JurisTempus.Data.Migrations
                                 .HasColumnType("nvarchar(max)");
 
                             b1.Property<string>("CityTown")
+                                .IsRequired()
                                 .HasColumnType("nvarchar(max)");
 
                             b1.Property<string>("Country")
                                 .HasColumnType("nvarchar(max)");
 
                             b1.Property<string>("PostalCode")
+                                .IsRequired()
                                 .HasColumnType("nvarchar(max)");
 
                             b1.Property<string>("StateProvince")
+                                .IsRequired()
                                 .HasColumnType("nvarchar(max)");
 
                             b1.HasKey("ClientId");
@@ -252,33 +261,66 @@ namespace JurisTempus.Data.Migrations
                                 {
                                     ClientId = 1,
                                     Address1 = "123 Main Street",
+                                    Address2 = "",
                                     CityTown = "Atlanta",
                                     PostalCode = "12345",
                                     StateProvince = "GA"
                                 });
                         });
+
+                    b.Navigation("Address")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("JurisTempus.Data.Entities.Invoice", b =>
                 {
                     b.HasOne("JurisTempus.Data.Entities.Client", "Client")
                         .WithMany("Invoices")
-                        .HasForeignKey("ClientId");
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Client");
                 });
 
             modelBuilder.Entity("JurisTempus.Data.Entities.TimeBill", b =>
                 {
                     b.HasOne("JurisTempus.Data.Entities.Case", "Case")
                         .WithMany()
-                        .HasForeignKey("CaseId");
+                        .HasForeignKey("CaseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("JurisTempus.Data.Entities.Employee", "Employee")
                         .WithMany("TimeBilling")
-                        .HasForeignKey("EmployeeId");
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("JurisTempus.Data.Entities.Invoice", null)
                         .WithMany("TimeBills")
                         .HasForeignKey("InvoiceId");
+
+                    b.Navigation("Case");
+
+                    b.Navigation("Employee");
+                });
+
+            modelBuilder.Entity("JurisTempus.Data.Entities.Client", b =>
+                {
+                    b.Navigation("Cases");
+
+                    b.Navigation("Invoices");
+                });
+
+            modelBuilder.Entity("JurisTempus.Data.Entities.Employee", b =>
+                {
+                    b.Navigation("TimeBilling");
+                });
+
+            modelBuilder.Entity("JurisTempus.Data.Entities.Invoice", b =>
+                {
+                    b.Navigation("TimeBills");
                 });
 #pragma warning restore 612, 618
         }

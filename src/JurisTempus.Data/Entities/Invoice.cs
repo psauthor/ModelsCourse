@@ -10,12 +10,12 @@ namespace JurisTempus.Data.Entities
   {
     public int Id { get; set; }
     public DateTime Date { get; set; }
-    public string InvoiceNumber { get; set; }
+    public required string InvoiceNumber { get; set; }
     public DateTime DueDate { get; set; }
-    public string PublicComments { get; set; }
+    public string? PublicComments { get; set; }
 
-    public ICollection<TimeBill> TimeBills { get; set; }
-    public Client Client { get; set; }
+    public List<TimeBill> TimeBills { get; set; } = new();
+    public required Client Client { get; set; }
 
   }
 }

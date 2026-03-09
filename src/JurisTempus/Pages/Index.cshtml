@@ -1,0 +1,38 @@
+@page
+@using JurisTempus.Pages
+@model IndexPage
+@{
+  ViewData["Title"] = "Clients";
+}
+<div class="row">
+  <div class="col-8 offset-2">
+    <h3>Clients</h3>
+    <div><a href="/ClientEditor" class="btn btn-success">New</a></div>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th class="hidden"></th>
+          <th>Company Name</th>
+          <th>Contact Name</th>
+          <th>Phone</th>
+          <th>City</th>
+          <th>Number of Cases</th>
+        </tr>
+      </thead>
+      <tbody>
+        @foreach (var client in Model.Clients)
+        {
+          <tr>
+            <td class="hidden">@client.Id</td>
+            <td>@client.Name</td>
+            <td>@client.Contact</td>
+            <td>@client.Phone</td>
+            <td>@client.Address.CityTown</td>
+            <td>@client.Cases.Count()</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
+

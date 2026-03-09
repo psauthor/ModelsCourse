@@ -1,16 +1,10 @@
 ﻿using JurisTempus.Data.Entities;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace JurisTempus.Data
 {
   public class BillingContext : DbContext
   {
-
     public BillingContext(DbContextOptions options) : base(options)
     {
 
@@ -26,14 +20,9 @@ namespace JurisTempus.Data
     {
       base.OnModelCreating(bldr); // Do the Default
 
-      bldr.Entity<Case>()
-        .Property(c => c.FileNumber)
-        .IsRequired()
-        .HasMaxLength(50);
-
       bldr.Entity<Client>(t =>
       {
-        t.HasData(new Client
+        t.HasData(new
         {
           Id = 1,
           Name = "Sloan Taxis",
@@ -47,6 +36,7 @@ namespace JurisTempus.Data
           {
             ClientId = 1,
             Address1 = "123 Main Street",
+            Address2 = "",
             CityTown = "Atlanta",
             StateProvince = "GA",
             PostalCode = "12345"
@@ -69,6 +59,7 @@ namespace JurisTempus.Data
         .Property(c => c.Status)
         .HasConversion<int>(); // Store as  int
       bldr.Entity<Case>().Property<int>("ClientId");
+      bldr.Entity<Case>().Property(c => c.FileNumber).HasMaxLength(50);
 
       bldr.Entity<Case>()
        .HasData(new
@@ -78,18 +69,6 @@ namespace JurisTempus.Data
          Status = CaseStatus.Open,
          FileNumber = "ATL12394872"
        });
-
-      bldr.Entity<TimeBill>()
-        .HasData(new 
-        {
-          Id = 1,
-          CaseId = 1,
-          EmployeeId = 1,
-          Rate = 175.00m,
-          TimeSegments = 5,
-          WorkDate = DateTime.Today,
-          WorkDescription = "Entered data for the client"
-        });
 
     }
   }

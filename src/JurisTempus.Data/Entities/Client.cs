@@ -9,12 +9,12 @@ namespace JurisTempus.Data.Entities
   public class Client
   {
     public int Id { get; set; }
-    public string Name { get; set; }
-    public Address Address { get; set; }
-    public string Phone { get; set; }
-    public string Contact { get; set; }
+    public required string Name { get; set; }
+    public required Address Address { get; set; }
+    public required string Phone { get; set; }
+    public required string Contact { get; set; }
 
-    public ICollection<Case> Cases { get; set; }
-    public ICollection<Invoice> Invoices { get; set; }
+    public List<Case> Cases { get; set; } = new();
+    public List<Invoice> Invoices { get; set; } = new();
   }
 }

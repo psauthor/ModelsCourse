@@ -1,0 +1,30 @@
+GET http://localhost:5000/api/cases
+###
+GET http://localhost:5000/api/clients
+###
+GET http://localhost:5000/api/timebills
+###
+POST http://localhost:5000/api/clients
+Content-Type: application/json
+
+{
+  "id": 0,
+  "name": "SS",
+  "contact": "",
+  "phone": ""
+}
+
+###
+
+POST http://localhost:5000/api/cases
+Content-Type: application/json
+
+{
+  "id": 0,
+  "fileNumber": "20261001",
+  "status": "Open"
+}
+
+
+
+

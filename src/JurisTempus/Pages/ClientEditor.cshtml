@@ -1,0 +1,42 @@
+@page
+@using JurisTempus.Pages
+@{
+  ViewData["Title"] = "Client Editor";
+}
+@model ClientEditor
+<div>
+  <div>
+    <h3>Client Editor</h3>
+    <form asp-action="post">
+      <div class="flex flex-col">
+        <label asp-for="Client.Name"></label>
+        <input class="input" asp-for="Client.Name" />
+        <span asp-validation-for="Client.Name" class="text-warning"></span>
+        <label asp-for="Client.Contact"></label>
+        <input class="input" asp-for="Client.Contact" />
+        <label asp-for="Client.Phone"></label>
+        <input class="input" asp-for="Client.Phone" />
+        <label asp-for="Client.Address.Address1"></label>
+        <input class="input" asp-for="Client.Address.Address1" />
+        <label asp-for="Client.Address.Address2"></label>
+        <input class="input" asp-for="Client.Address.Address2" />
+        <label asp-for="Client.Address.Address3"></label>
+        <input class="input" asp-for="Client.Address.Address3" />
+        <label asp-for="Client.Address.CityTown"></label>
+        <input class="input" asp-for="Client.Address.CityTown" />
+        <label asp-for="Client.Address.StateProvince"></label>
+        <input class="input" asp-for="Client.Address.StateProvince" />
+        <label asp-for="Client.Address.PostalCode"></label>
+        <input class="input" asp-for="Client.Address.PostalCode" />
+        <div class="flex gap-2">
+          <a asp-action="Index" class="btn btn-info">Cancel</a>
+          <input type="submit" value="Save" class="btn btn-primary" />
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+@section Scripts {
+  <partial name="_ValidationPartial" />
+}

@@ -12,9 +12,9 @@ namespace JurisTempus.Data.Entities
     public DateTime WorkDate { get; set; }
     public int TimeSegments { get; set; }
     public decimal Rate { get; set; }
-    public string WorkDescription { get; set;  }
+    public required string WorkDescription { get; set;  }
 
-    public Employee Employee { get; set; }
-    public Case Case { get; set; }
+    public required Employee Employee { get; set; }
+    public required Case Case { get; set; }
   }
 }
